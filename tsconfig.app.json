@@ -22,6 +22,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["element-plus/global"],
     "baseUrl": "./", // 与 paths 配套使用的
     "paths": {
       "@/*": ["src/*"]

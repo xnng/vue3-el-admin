@@ -33,6 +33,7 @@ module.exports = defineConfig({
     'vue/multi-word-component-names': 'off', // 允许使用单个单词的组件名
     '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any
     '@unocss/order-attributify': 'off', // 关闭 unocss 类名必须按一定规则排序
+    'vue/attributes-order': 'off', // 关闭 vue 属性必须按一定规则排序
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }

@@ -1,42 +1,94 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
-
-const test = () => {
-  const a = 'sss'
-  console.log(a)
-}
-
-test()
-</script>
-
 <template>
-  <h1>{{ msg }}</h1>
+  <el-container class="layout-container">
+    <!-- 侧边栏 -->
+    <el-aside width="200px">
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+        <el-sub-menu index="1">
+          <template #title>
+            <el-icon><location /></el-icon>
+            <span>导航一</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+        <el-menu-item index="2">
+          <el-icon><menu /></el-icon>
+          <span>导航二</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+    <el-container>
+      <!-- 顶部导航栏 -->
+      <el-header>
+        <div class="header-content">
+          <h2>后台管理系统</h2>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              admin
+              <el-icon class="el-icon--right"><arrow-down /></el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>个人信息</el-dropdown-item>
+                <el-dropdown-item>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </el-header>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support" target="_blank">Vue Docs Scaling up Guide</a>.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+      <!-- 主要内容区域 -->
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
+<script setup>
+import { Location, ArrowDown } from '@element-plus/icons-vue'
+
+const handleOpen = (key, keyPath) => {
+  console.log(key, keyPath)
+}
+const handleClose = (key, keyPath) => {
+  console.log(key, keyPath)
+}
+</script>
+
 <style scoped>
-.read-the-docs {
-  color: #888;
+.layout-container {
+  height: 100vh;
+}
+
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
+
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+}
+
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+  display: flex;
+  align-items: center;
 }
 </style>
