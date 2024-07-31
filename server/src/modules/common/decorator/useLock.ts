@@ -15,12 +15,14 @@ export const LOCK_KEY = 'decorator:lock_key';
 interface LockMetadata {
   /** * 非自动释放锁的情况下，锁住最长时间，单位毫秒 */
   time?: number;
-  /** * 是否自动释放锁，默认 false */
+  /** * 锁的范围，all 锁全局，user 锁用户，默认锁用户 */
+  lockArea?: 'all' | 'user';
+  /** * 是否自动释放锁，默认 true */
   autoRelaseLock?: boolean;
 }
 
 /**
- * Redis 分布式锁，防止接口重复请求
+ * Redis 分布式锁，防止接口重复请求/限流
  */
 export function UseLock(options?: LockMetadata): MethodDecorator {
   let autoRelaseLock = true;
@@ -29,6 +31,7 @@ export function UseLock(options?: LockMetadata): MethodDecorator {
   }
   return createCustomMethodDecorator(LOCK_KEY, {
     time: options?.time || 1000,
+    lockArea: options?.lockArea || 'user',
     autoRelaseLock,
   });
 }
@@ -49,14 +52,17 @@ export class UseLockDecorator extends BaseClass {
           const instance = joinPoint.target;
           const ctx = instance[REQUEST_OBJ_CTX_KEY];
 
-          const { time, autoRelaseLock } = options.metadata;
+          const { time, lockArea, autoRelaseLock } = options.metadata;
           let key = '';
-          if (ctx.user && ctx.user.uid) {
-            key = `lock:${ctx.user.uid}`;
-          } else if (this.getRealIp(ctx) && this.getRealIp(ctx) !== 'unkown') {
-            key = `lock:${this.getRealIp(ctx)}`;
+          const uid = ctx?.user?.uid;
+          const method = ctx.method.toLowerCase();
+          const path = ctx.path;
+          const ip = this.getRealIp(ctx);
+          if (lockArea === 'user') {
+            const uKey = uid ? uid : ip;
+            key = `lock:${uKey}:${method}_${path}`;
           } else {
-            key = `lock:${ctx.method.toLowerCase()}_${ctx.path}`;
+            key = `lock:${method}_${path}`;
           }
           const lock = await this.lockService.lockAcquire(key, time);
           if (!lock) {
