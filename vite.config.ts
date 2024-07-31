@@ -11,7 +11,7 @@ export default defineConfig({
   resolve: {
     // 配置路径别名
     alias: {
-      '@': resolve(__dirname, "./src")
+      '@': resolve(__dirname, './src')
     }
   },
   optimizeDeps: {
