@@ -1,4 +1,4 @@
-name: Deploy Prod
+name: deploy-pages
 
 on:
   push:
