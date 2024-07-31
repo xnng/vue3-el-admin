@@ -2,9 +2,6 @@
   <div>about</div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

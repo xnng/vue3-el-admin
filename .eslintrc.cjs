@@ -28,6 +28,8 @@ module.exports = defineConfig({
   rules: {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-var-requires': 'off', // 允许使用 require
+    'vue/multi-word-component-names': 'off', // 允许使用单个单词的组件名
+    '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
