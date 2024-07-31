@@ -1,4 +1,4 @@
-name: deploy-pages
+name: deploy-pages-dev
 
 on:
   push:
@@ -42,13 +42,18 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Prepare deployment
+        run: |
+          mkdir -p dist_combined/dev
+          mv dist/* dist_combined/dev/
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './dist_combined'
 
       - name: Deploy to GitHub Pages
         id: deployment
