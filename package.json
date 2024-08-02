@@ -15,6 +15,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@types/node": "^22.0.0",
     "element-plus": "^2.7.8",
     "pinia": "^2.2.0",
@@ -33,6 +34,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-vue": "^9.15.1",
     "globals": "^15.8.0",
+    "less": "^4.2.0",
     "prettier": "^3.3.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.2.2",

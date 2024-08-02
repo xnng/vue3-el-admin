@@ -19,6 +19,14 @@ export default defineConfig({
     // 在开发环境中，Vite 会预构建 element-plus，从而加快开发服务器的启动速度和热更新速度
     include: ['element-plus']
   },
+  css: {
+    preprocessorOptions: {
+      // 支持使用 less
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
   build: {
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
