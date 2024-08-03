@@ -29,11 +29,12 @@ module.exports = defineConfig({
   ],
   rules: {
     'prettier/prettier': 'error',
-    '@typescript-eslint/no-var-requires': 'off', // 允许使用 require
-    'vue/multi-word-component-names': 'off', // 允许使用单个单词的组件名
-    '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any
+    '@typescript-eslint/no-var-requires': 'off', // 关闭 不允许使用 require
+    'vue/multi-word-component-names': 'off', // 关闭 不能使用单个单词命名组件
+    '@typescript-eslint/no-explicit-any': 'off', // 关闭 不允许使用 any
     '@unocss/order-attributify': 'off', // 关闭 unocss 类名必须按一定规则排序
     'vue/attributes-order': 'off', // 关闭 vue 属性必须按一定规则排序
+    'vue/attribute-hyphenation': 'off', // 关闭 vue 属性必须使用连字符
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
