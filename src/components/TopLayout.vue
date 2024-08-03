@@ -1,13 +1,16 @@
 <template>
   <div class="h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
     <el-header class="w-full bg-[#001529] text-white shadow-md flex items-center justify-between">
       <div class="flex items-center">
         <img src="@/assets/logo.png" alt="Logo" class="w-8 h-8 mr-3" />
         <span class="text-lg font-semibold">管理系统</span>
       </div>
+      <!-- 用户下拉菜单 -->
       <user-dropdown />
     </el-header>
     <el-container class="flex-1 overflow-hidden">
+      <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '250px'" class="bg-[#001529] transition-width duration-300 overflow-x-hidden">
         <el-menu
           :default-active="currentRoute"
@@ -24,9 +27,12 @@
         </el-menu>
       </el-aside>
       <el-container class="flex flex-col">
+        <!-- 次级导航栏 -->
         <el-header class="bg-white shadow-md flex items-center justify-between">
           <div class="flex items-center">
+            <!-- 折叠按钮 -->
             <Icon class="text-xl cursor-pointer mr-5 text-[#001529]" :icon="isCollapse ? 'ep:expand' : 'ep:fold'" @click="toggleSidebar" />
+            <!-- 面包屑导航 -->
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item v-for="(item, index) in breadcrumbItems" :key="index">
@@ -35,11 +41,13 @@
             </el-breadcrumb>
           </div>
         </el-header>
+        <!-- 主内容区 -->
         <el-main class="flex-1 bg-[#f0f2f5]">
           <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
+    <!-- 布局切换按钮 -->
     <el-button class="layout-toggle-btn" @click="toggleLayout"> 切换布局 </el-button>
   </div>
 </template>
@@ -50,6 +58,7 @@ import RecursiveMenu from './RecursiveMenu.vue'
 import UserDropdown from './UserDropdown.vue'
 import { useLayoutLogic } from '@/components/useLayoutLogic'
 
+// 使用布局逻辑
 const { currentRoute, isCollapse, toggleSidebar, menuRoutes, breadcrumbItems, handleOpen, handleClose, toggleLayout } = useLayoutLogic()
 </script>
 
