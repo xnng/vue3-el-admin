@@ -1,18 +1,16 @@
-<script setup lang="ts">
-import { useAppStore } from './store/app'
+<script lang="ts" setup>
+import { useTheme } from "@/hooks/useTheme"
+// 将 Element Plus 的语言设置为中文
+import zhCn from "element-plus/es/locale/lang/zh-cn"
 
-const appStore = useAppStore()
-appStore.initMobileListener()
+const { initTheme } = useTheme()
+
+/** 初始化主题 */
+initTheme()
 </script>
 
 <template>
-  <RouterView />
+  <el-config-provider :locale="zhCn">
+    <router-view />
+  </el-config-provider>
 </template>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
