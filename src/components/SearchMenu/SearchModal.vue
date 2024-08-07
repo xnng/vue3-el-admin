@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { computed, ref, shallowRef } from "vue"
-import { type RouteRecordName, type RouteRecordRaw, useRouter } from "vue-router"
-import { usePermissionStore } from "@/store/modules/permission"
-import SearchResult from "./SearchResult.vue"
-import SearchFooter from "./SearchFooter.vue"
-import { ElMessage, ElScrollbar } from "element-plus"
-import { cloneDeep, debounce } from "lodash-es"
-import { useDevice } from "@/hooks/useDevice"
-import { isExternal } from "@/utils/validate"
+import { computed, ref, shallowRef } from 'vue'
+import { type RouteRecordName, type RouteRecordRaw, useRouter } from 'vue-router'
+import { usePermissionStore } from '@/store/modules/permission'
+import SearchResult from './SearchResult.vue'
+import SearchFooter from './SearchFooter.vue'
+import { ElMessage, ElScrollbar } from 'element-plus'
+import { cloneDeep, debounce } from 'lodash-es'
+import { useDevice } from '@/hooks/useDevice'
+import { isExternal } from '@/utils/validate'
 
 /** 控制 modal 显隐 */
 const modelValue = defineModel<boolean>({ required: true })
@@ -19,14 +19,14 @@ const inputRef = ref<HTMLInputElement | null>(null)
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
 const searchResultRef = ref<InstanceType<typeof SearchResult> | null>(null)
 
-const keyword = ref<string>("")
+const keyword = ref<string>('')
 const resultList = shallowRef<RouteRecordRaw[]>([])
 const activeRouteName = ref<RouteRecordName | undefined>(undefined)
 /** 是否按下了上键或下键（用于解决和 mouseenter 事件的冲突） */
 const isPressUpOrDown = ref<boolean>(false)
 
 /** 控制搜索对话框宽度 */
-const modalWidth = computed(() => (isMobile.value ? "80vw" : "40vw"))
+const modalWidth = computed(() => (isMobile.value ? '80vw' : '40vw'))
 /** 树形菜单 */
 const menusData = computed(() => cloneDeep(usePermissionStore().routes))
 
@@ -55,7 +55,7 @@ const handleClose = () => {
   modelValue.value = false
   // 延时处理防止用户看到重置数据的操作
   setTimeout(() => {
-    keyword.value = ""
+    keyword.value = ''
     resultList.value = []
   }, 200)
 }
@@ -125,17 +125,17 @@ const handleEnter = () => {
   const name = activeRouteName.value
   const path = resultList.value.find((item) => item.name === name)?.path
   if (path && isExternal(path)) {
-    window.open(path, "_blank", "noopener, noreferrer")
+    window.open(path, '_blank', 'noopener, noreferrer')
     return
   }
   if (!name) {
-    ElMessage.warning("无法通过搜索进入该菜单，请为对应的路由设置唯一的 Name")
+    ElMessage.warning('无法通过搜索进入该菜单，请为对应的路由设置唯一的 Name')
     return
   }
   try {
     router.push({ name })
   } catch {
-    ElMessage.error("该菜单有必填的动态参数，无法通过搜索进入")
+    ElMessage.error('该菜单有必填的动态参数，无法通过搜索进入')
     return
   }
   handleClose()
@@ -171,13 +171,7 @@ const handleReleaseUpOrDown = () => {
     <template v-else>
       <p>搜索结果</p>
       <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
-        <SearchResult
-          ref="searchResultRef"
-          v-model="activeRouteName"
-          :list="resultList"
-          :isPressUpOrDown="isPressUpOrDown"
-          @click="handleEnter"
-        />
+        <SearchResult ref="searchResultRef" v-model="activeRouteName" :list="resultList" :isPressUpOrDown="isPressUpOrDown" @click="handleEnter" />
       </el-scrollbar>
     </template>
     <template #footer>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useFullscreenLoading } from "@/hooks/useFullscreenLoading"
-import { getSuccessApi, getErrorApi } from "@/api/hook-demo/use-fullscreen-loading"
-import { ElMessage } from "element-plus"
+import { useFullscreenLoading } from '@/hooks/useFullscreenLoading'
+import { getSuccessApi, getErrorApi } from '@/api/hook-demo/use-fullscreen-loading'
+import { ElMessage } from 'element-plus'
 
 const svg = `
   <path class="path" d="
@@ -15,10 +15,10 @@ const svg = `
 `
 
 const options = {
-  text: "即将发生错误...",
-  background: "#F56C6C20",
+  text: '即将发生错误...',
+  background: '#F56C6C20',
   svg,
-  svgViewBox: "-10, -10, 50, 50"
+  svgViewBox: '-10, -10, 50, 50'
 }
 
 const querySuccess = async () => {

@@ -1,8 +1,8 @@
-import { type LoadingOptions, ElLoading } from "element-plus"
+import { type LoadingOptions, ElLoading } from 'element-plus'
 
 const defaultOptions = {
   lock: true,
-  text: "加载中..."
+  text: '加载中...'
 }
 
 interface LoadingInstance {
@@ -10,10 +10,7 @@ interface LoadingInstance {
 }
 
 interface UseFullscreenLoading {
-  <T extends (...args: any[]) => ReturnType<T>>(
-    fn: T,
-    options?: LoadingOptions
-  ): (...args: Parameters<T>) => Promise<ReturnType<T>>
+  <T extends (...args: any[]) => ReturnType<T>>(fn: T, options?: LoadingOptions): (...args: Parameters<T>) => Promise<ReturnType<T>>
 }
 
 /**

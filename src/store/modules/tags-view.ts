@@ -1,12 +1,12 @@
-import { ref, watchEffect } from "vue"
-import { defineStore } from "pinia"
-import { useSettingsStore } from "./settings"
-import { type RouteLocationNormalized } from "vue-router"
-import { getVisitedViews, setVisitedViews, getCachedViews, setCachedViews } from "@/utils/cache/local-storage"
+import { ref, watchEffect } from 'vue'
+import { defineStore } from 'pinia'
+import { useSettingsStore } from './settings'
+import { type RouteLocationNormalized } from 'vue-router'
+import { getVisitedViews, setVisitedViews, getCachedViews, setCachedViews } from '@/utils/cache/local-storage'
 
 export type TagView = Partial<RouteLocationNormalized>
 
-export const useTagsViewStore = defineStore("tags-view", () => {
+export const useTagsViewStore = defineStore('tags-view', () => {
   const { cacheTagsView } = useSettingsStore()
   const visitedViews = ref<TagView[]>(cacheTagsView ? getVisitedViews() : [])
   const cachedViews = ref<string[]>(cacheTagsView ? getCachedViews() : [])
@@ -31,7 +31,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   }
 
   const addCachedView = (view: TagView) => {
-    if (typeof view.name !== "string") return
+    if (typeof view.name !== 'string') return
     if (cachedViews.value.includes(view.name)) return
     if (view.meta?.keepAlive) cachedViews.value.push(view.name)
   }
@@ -44,7 +44,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   }
 
   const delCachedView = (view: TagView) => {
-    if (typeof view.name !== "string") return
+    if (typeof view.name !== 'string') return
     const index = cachedViews.value.indexOf(view.name)
     if (index !== -1) cachedViews.value.splice(index, 1)
   }
@@ -58,7 +58,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   }
 
   const delOthersCachedViews = (view: TagView) => {
-    if (typeof view.name !== "string") return
+    if (typeof view.name !== 'string') return
     const index = cachedViews.value.indexOf(view.name)
     if (index !== -1) {
       cachedViews.value = cachedViews.value.slice(index, index + 1)

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { checkPermission } from "@/utils/permission"
-import SwitchRoles from "./components/SwitchRoles.vue"
+import { checkPermission } from '@/utils/permission'
+import SwitchRoles from './components/SwitchRoles.vue'
 </script>
 
 <template>
@@ -27,8 +27,8 @@ import SwitchRoles from "./components/SwitchRoles.vue"
     <!-- checkPermission 示例 -->
     <div class="margin-top-30">
       <el-tag type="warning" size="large">
-        例如 Element Plus 的 el-tab-pane 或 el-table-column 以及其它动态渲染 Dom 的场景不适合使用
-        v-permission，这种情况下你可以通过 v-if 和 checkPermission 来实现：
+        例如 Element Plus 的 el-tab-pane 或 el-table-column 以及其它动态渲染 Dom 的场景不适合使用 v-permission，这种情况下你可以通过 v-if 和
+        checkPermission 来实现：
       </el-tag>
       <el-tabs type="border-card" class="margin-top-15">
         <el-tab-pane v-if="checkPermission(['admin'])" label="admin">

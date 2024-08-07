@@ -1,11 +1,11 @@
 /** 判断是否为数组 */
 export const isArray = (arg: unknown) => {
-  return Array.isArray ? Array.isArray(arg) : Object.prototype.toString.call(arg) === "[object Array]"
+  return Array.isArray ? Array.isArray(arg) : Object.prototype.toString.call(arg) === '[object Array]'
 }
 
 /** 判断是否为字符串 */
 export const isString = (str: unknown) => {
-  return typeof str === "string" || str instanceof String
+  return typeof str === 'string' || str instanceof String
 }
 
 /** 判断是否为外链 */
@@ -64,8 +64,7 @@ export const isEmail = (email: string) => {
 
 /** 判断是否为 MAC 地址 */
 export const isMAC = (mac: string) => {
-  const reg =
-    /^(([a-f0-9][0,2,4,6,8,a,c,e]:([a-f0-9]{2}:){4})|([a-f0-9][0,2,4,6,8,a,c,e]-([a-f0-9]{2}-){4}))[a-f0-9]{2}$/i
+  const reg = /^(([a-f0-9][0,2,4,6,8,a,c,e]:([a-f0-9]{2}:){4})|([a-f0-9][0,2,4,6,8,a,c,e]-([a-f0-9]{2}-){4}))[a-f0-9]{2}$/i
   return reg.test(mac)
 }
 
@@ -78,7 +77,6 @@ export const isIPv4 = (ip: string) => {
 
 /** 判断是否为车牌（兼容新能源车牌） */
 export const isLicensePlate = (str: string) => {
-  const reg =
-    /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/
+  const reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/
   return reg.test(str)
 }

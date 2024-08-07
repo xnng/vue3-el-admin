@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref } from "vue"
-import { type RouteLocationMatched, useRoute, useRouter } from "vue-router"
-import { useRouteListener } from "@/hooks/useRouteListener"
-import { compile } from "path-to-regexp"
+import { ref } from 'vue'
+import { type RouteLocationMatched, useRoute, useRouter } from 'vue-router'
+import { useRouteListener } from '@/hooks/useRouteListener'
+import { compile } from 'path-to-regexp'
 
 const route = useRoute()
 const router = useRouter()
@@ -34,7 +34,7 @@ const handleLink = (item: RouteLocationMatched) => {
 
 /** 监听路由变化，更新面包屑导航信息 */
 listenerRouteChange((route) => {
-  if (route.path.startsWith("/redirect/")) return
+  if (route.path.startsWith('/redirect/')) return
   getBreadcrumb()
 }, true)
 </script>

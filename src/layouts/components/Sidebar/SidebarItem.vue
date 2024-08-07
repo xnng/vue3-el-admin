@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed } from "vue"
-import { type RouteRecordRaw } from "vue-router"
-import SidebarItemLink from "./SidebarItemLink.vue"
-import { isExternal } from "@/utils/validate"
-import path from "path-browserify"
+import { computed } from 'vue'
+import { type RouteRecordRaw } from 'vue-router'
+import SidebarItemLink from './SidebarItemLink.vue'
+import { isExternal } from '@/utils/validate'
+import path from 'path-browserify'
 
 interface Props {
   item: RouteRecordRaw
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  basePath: ""
+  basePath: ''
 })
 
 /** 是否始终显示根菜单 */
@@ -36,7 +36,7 @@ const theOnlyOneChild = computed(() => {
     case number === 1:
       return showingChildren.value[0]
     default:
-      return { ...props.item, path: "" }
+      return { ...props.item, path: '' }
   }
 })
 
@@ -72,12 +72,7 @@ const resolvePath = (routePath: string) => {
       <span v-if="props.item.meta?.title">{{ props.item.meta.title }}</span>
     </template>
     <template v-if="props.item.children">
-      <SidebarItem
-        v-for="child in showingChildren"
-        :key="child.path"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-      />
+      <SidebarItem v-for="child in showingChildren" :key="child.path" :item="child" :base-path="resolvePath(child.path)" />
     </template>
   </el-sub-menu>
 </template>

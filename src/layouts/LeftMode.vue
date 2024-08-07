@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed } from "vue"
-import { storeToRefs } from "pinia"
-import { useAppStore } from "@/store/modules/app"
-import { useSettingsStore } from "@/store/modules/settings"
-import { AppMain, NavigationBar, Sidebar, TagsView } from "./components"
-import { useDevice } from "@/hooks/useDevice"
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/store/modules/app'
+import { useSettingsStore } from '@/store/modules/settings'
+import { AppMain, NavigationBar, Sidebar, TagsView } from './components'
+import { useDevice } from '@/hooks/useDevice'
 
 const { isMobile } = useDevice()
 const appStore = useAppStore()
@@ -47,7 +47,7 @@ const handleClickOutside = () => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/styles/mixins.scss";
+@import '@/styles/mixins.scss';
 $transition-time: 0.35s;
 
 .app-wrapper {

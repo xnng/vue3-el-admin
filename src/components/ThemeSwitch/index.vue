@@ -1,18 +1,15 @@
 <script lang="ts" setup>
-import { type ThemeName, useTheme } from "@/hooks/useTheme"
-import { MagicStick } from "@element-plus/icons-vue"
+import { type ThemeName, useTheme } from '@/hooks/useTheme'
+import { MagicStick } from '@element-plus/icons-vue'
 
 const { themeList, activeThemeName, setTheme } = useTheme()
 
 const handleChangeTheme = ({ clientX, clientY }: MouseEvent, themeName: ThemeName) => {
-  const maxRadius = Math.hypot(
-    Math.max(clientX, window.innerWidth - clientX),
-    Math.max(clientY, window.innerHeight - clientY)
-  )
+  const maxRadius = Math.hypot(Math.max(clientX, window.innerWidth - clientX), Math.max(clientY, window.innerHeight - clientY))
   const style = document.documentElement.style
-  style.setProperty("--v3-theme-x", clientX + "px")
-  style.setProperty("--v3-theme-y", clientY + "px")
-  style.setProperty("--v3-theme-r", maxRadius + "px")
+  style.setProperty('--v3-theme-x', clientX + 'px')
+  style.setProperty('--v3-theme-y', clientY + 'px')
+  style.setProperty('--v3-theme-r', maxRadius + 'px')
   const handler = () => {
     setTheme(themeName)
   }

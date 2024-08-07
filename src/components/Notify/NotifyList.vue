@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type ListItem } from "./data"
+import { type ListItem } from './data'
 
 interface Props {
   list: ListItem[]
@@ -26,7 +26,7 @@ const props = defineProps<Props>()
       </div>
     </template>
     <div class="card-body">
-      {{ item.description ?? "No Data" }}
+      {{ item.description ?? 'No Data' }}
     </div>
   </el-card>
 </template>
