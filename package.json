@@ -21,7 +21,6 @@
     "lint": "eslint . --ext .js,.ts,.vue",
     "lint:fix": "eslint . --ext .js,.ts,.vue --fix",
     "prettier": "prettier --write \"src/**/*.{js,ts,vue,css,scss,html}\"",
-    "prepare": "husky",
     "test": "vitest"
   },
   "dependencies": {
