@@ -4,6 +4,12 @@
  * 也可以打开浏览器控制台选择元素，查看要覆盖的变量名
  */
 
+html.normal {
+  --el-color-primary: #222c67ff;
+  --el-color-primary-light-3: #222c67cc;
+  --el-color-primary-hover-10: #222c671a;
+}
+
 /** 基础颜色 */
 html.dark-blue {
   /** color-primary */

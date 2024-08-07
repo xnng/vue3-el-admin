@@ -202,7 +202,7 @@ onMounted(() => {
       position: relative;
       cursor: pointer;
       height: 26px;
-      line-height: 26px;
+      line-height: 24px;
       border: 1px solid var(--v3-tagsview-tag-border-color);
       border-radius: var(--v3-tagsview-tag-border-radius);
       background-color: var(--v3-tagsview-tag-bg-color);
@@ -210,6 +210,7 @@ onMounted(() => {
       font-size: 12px;
       margin-left: 5px;
       margin-top: 4px;
+      transition: all 0.3s;
       &:first-of-type {
         margin-left: 5px;
       }
@@ -217,9 +218,13 @@ onMounted(() => {
         margin-right: 5px;
       }
       &.active {
-        background-color: var(--v3-tagsview-tag-active-bg-color);
+        // background-color: var(--v3-tagsview-tag-active-bg-color);
         color: var(--v3-tagsview-tag-active-text-color);
         border-color: var(--v3-tagsview-tag-active-border-color);
+      }
+      &:hover {
+        background-color: var(--el-color-primary);
+        color: #ffffff;
       }
       .el-icon {
         margin: 0 2px;
