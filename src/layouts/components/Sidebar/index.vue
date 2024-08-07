@@ -63,7 +63,7 @@ const hiddenScrollbarVerticalBar = computed(() => {
         :collapse-transition="false"
         :mode="isTop && !isMobile ? 'horizontal' : 'vertical'"
       >
-        <SidebarItem v-for="route in noHiddenRoutes" :key="route.path" :item="route" :base-path="route.path" />
+        <SidebarItem v-for="routeItem in noHiddenRoutes" :key="routeItem.path" :item="routeItem" :base-path="routeItem.path" />
       </el-menu>
     </el-scrollbar>
   </div>
