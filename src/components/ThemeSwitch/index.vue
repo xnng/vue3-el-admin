@@ -13,8 +13,7 @@ const handleChangeTheme = ({ clientX, clientY }: MouseEvent, themeName: ThemeNam
   const handler = () => {
     setTheme(themeName)
   }
-  handler()
-  // document.startViewTransition ? document.startViewTransition(handler) : handler()
+  document.startViewTransition ? document.startViewTransition(handler) : handler()
 }
 </script>
 

@@ -40,7 +40,7 @@ jobs:
         run: pnpm lint
 
       - name: Build
-        run: pnpm build
+        run: pnpm build:prod
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
