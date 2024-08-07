@@ -18,9 +18,9 @@ export default {
   /** 在对象中的括号之间是否用空格来间隔 */
   bracketSpacing: true,
   /** 对象或者数组的最后一个元素后面不要加逗号 */
-  trailingComma: "none",
+  trailingComma: 'none',
   /** 箭头函数参数周围使用圆括号-eg: (x) => x */
-  arrowParens: "always",
+  arrowParens: 'always',
   /** 换行符的形式 */
-  endOfLine: "lf"
+  endOfLine: 'lf'
 }
