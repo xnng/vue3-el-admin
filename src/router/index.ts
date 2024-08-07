@@ -144,7 +144,6 @@ export const constantRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: 'menu1',
-        component: () => import('@/views/menu/menu1/index.vue'),
         redirect: '/menu/menu1/menu1-1',
         name: 'Menu1',
         meta: {
@@ -264,7 +263,6 @@ export const dynamicRoutes: RouteRecordRaw[] = [
     meta: {
       title: '权限',
       svgIcon: 'lock',
-      roles: ['admin', 'editor'], // 可以在根路由中设置角色
       alwaysShow: true // 将始终显示根菜单
     },
     children: [
@@ -273,8 +271,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/permission/page.vue'),
         name: 'PagePermission',
         meta: {
-          title: '页面级',
-          roles: ['admin'] // 或者在子导航中设置角色
+          title: '页面级'
         }
       },
       {
