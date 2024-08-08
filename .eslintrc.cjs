@@ -39,6 +39,8 @@ module.exports = defineConfig({
     'vue/component-definition-name-casing': 'off', // 关闭 【组件定义名称必须符合特定的规则】
     'vue/one-component-per-file': 'off', // 关闭 【单个文件不能有多个组件】
     'vue/require-prop-types': 'off', // 关闭 【组件 props 必须定义类型】
-    '@typescript-eslint/ban-ts-comment': 'off' // 关闭 【禁止使用 @ts-xxx 注释】
+    '@typescript-eslint/ban-ts-comment': 'off', // 关闭 【禁止使用 @ts-xxx 注释】
+    'no-prototype-builtins': 'off', // 关闭 【禁止直接使用 Object.prototypes 的内置属性】
+    'vue/require-explicit-emits': 'off' // 关闭 【组件必须明确声明 emits】
   }
 })

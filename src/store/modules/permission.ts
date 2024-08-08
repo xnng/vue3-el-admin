@@ -3,9 +3,8 @@ import store from '@/store'
 import { defineStore } from 'pinia'
 import { type RouteRecordRaw } from 'vue-router'
 import { constantRoutes, dynamicRoutes } from '@/router'
-import { flatMultiLevelRoutes } from '@/router/helper'
+import { filterRoutesByWhitelist, flatMultiLevelRoutes } from '@/router/helper'
 import routeSettings from '@/config/route'
-import { filterRoutesByWhitelist } from '@/utils/permission'
 
 const whiteList = ['/permission', '/permission/page']
 

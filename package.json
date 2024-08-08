@@ -40,8 +40,6 @@
     "screenfull": "6.0.2",
     "vue": "3.4.31",
     "vue-router": "4.4.0",
-    "vxe-table": "4.6.18",
-    "vxe-table-plugin-element": "4.0.4",
     "xe-utils": "3.5.28"
   },
   "devDependencies": {
