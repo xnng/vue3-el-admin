@@ -12,7 +12,7 @@
       </template>
       <ElInput
         v-if="['text', 'number'].includes(item.type) && !item.searchSlot"
-        :placeholder="`${t('common.inputText')} ${item.label}`"
+        :placeholder="`请输入 ${item.label}`"
         :clearable="item.clearable ? item.clearable : true"
         @clear="searchValue[item.prop] = ''"
         v-model="searchValue[item.prop]"
@@ -26,7 +26,7 @@
         v-model="searchValue[item.prop]"
         :clearable="item.clearable ? item.clearable : true"
         @clear="searchValue[item.prop] = ''"
-        :placeholder="`${t('common.selectText')} ${item.label}`"
+        :placeholder="`请选择 ${item.label}`"
         :disabled="item.searchDisabled"
         :style="`width: ${item.searchWidth ? item.searchWidth : 240}px`"
         :class="[isMobile() && 'mobile-searchitem']"
@@ -41,7 +41,7 @@
         :disabled="item.searchDisabled"
         @clear="searchValue[item.prop] = ''"
         :value-format="item.valueFormat ? item.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
-        :placeholder="`${t('common.selectText')} ${item.label}`"
+        :placeholder="`请选择 ${item.label}`"
         :style="`width: ${item.searchWidth ? item.searchWidth : 240}px`"
         :class="[isMobile() && 'mobile-searchitem']"
       />
@@ -53,28 +53,28 @@
         :disabled="item.searchDisabled"
         :value-format="item.valueFormat ? item.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
         @clear="searchValue[item.prop] = []"
-        :placeholder="`${t('common.selectText')} ${item.label}`"
+        :placeholder="`请选择 ${item.label}`"
         :style="`width: ${item.searchWidth ? item.searchWidth : 240}px`"
         :class="[isMobile() && 'mobile-searchitem']"
-        :range-separator="t('common.to')"
-        :start-placeholder="t('common.startTimeText')"
-        :end-placeholder="t('common.endTimeText')"
+        range-separator="至"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
         :default-time="[dayjs(searchValue[item.prop]).startOf('day').toDate(), dayjs(searchValue[item.prop]).endOf('day').toDate()]"
       />
       <ElDatePicker
         v-if="item.type == 'datetimerange' && !item.searchSlot"
         v-model="searchValue[item.prop]"
         :type="item.type ? item.type : 'date'"
-        :placeholder="`${t('common.selectText')} ${item.label}`"
+        :placeholder="`请选择 ${item.label}`"
         :disabled="item.searchDisabled"
         :value-format="item.valueFormat ? item.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
         :clearable="item.clearable ? item.clearable : true"
         @clear="searchValue[item.prop] = []"
         :style="`width: ${item.searchWidth ? item.searchWidth : 340}px`"
         :class="[isMobile() && 'mobile-searchitem']"
-        :range-separator="t('common.to')"
-        :start-placeholder="t('common.startTimeText')"
-        :end-placeholder="t('common.endTimeText')"
+        range-separator="至"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
         :default-time="[dayjs(searchValue[item.prop]).startOf('day').toDate(), dayjs(searchValue[item.prop]).endOf('day').toDate()]"
       />
     </ElFormItem>
@@ -82,11 +82,11 @@
       <div :class="[isMobile() && 'mobile-searchbtn']">
         <ElButton type="primary" @click="handleSearch" :loading="searchLoading">
           <Icon icon="ep:search" />
-          <span>{{ t('common.query') }}</span>
+          <span>查询</span>
         </ElButton>
         <ElButton type="info" @click="resetForm">
           <Icon icon="ep:delete" />
-          <span>{{ t('common.reset') }}</span>
+          <span>重置</span>
         </ElButton>
       </div>
     </ElFormItem>
@@ -97,11 +97,9 @@
 import { ElForm, ElFormItem, ElInput, ElSelect, ElOption, ElButton, ElDatePicker } from 'element-plus'
 import { ref, computed, watch } from 'vue'
 import { ITableOption } from '../ATable/CrudTypes'
-import { isMobile } from '@/utils/util'
-import { useI18n } from '@/hooks/web/useI18n'
+import { isMobile } from '@/utils'
 import dayjs from 'dayjs'
 
-const { t } = useI18n()
 const props = defineProps<{
   options: ITableOption
   modelValue: any
@@ -109,7 +107,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['search', 'reset', 'update:modelValue'])
 
-const searchValue = ref({})
+const searchValue = ref<any>({})
 const searchLoading = ref(false)
 
 // 和父组件的数据同步

@@ -11,7 +11,7 @@
           v-permission="tableConfig.addBtnPermission ? tableConfig.addBtnPermission : 'show'"
         >
           <Icon icon="ep:plus" />
-          <span>{{ t('common.add') }}</span>
+          <span>新增</span>
         </ElButton>
 
         <slot name="btnSlot"></slot>
@@ -25,13 +25,6 @@
           >
             <img class="w-16px h-16px" src="@/assets/atable/shuaxin@2x.png" />
           </div>
-          <!-- <div
-            v-if="tableConfig.exportBtn"
-            class="w-39px h-39px flex flex-items-center justify-center cursor-pointer transition-colors bg-[#F8F9FA] rd-[50%] hover:bg-[var(--el-color-primary-hover-10)]"
-            @click="handleRefresh"
-          >
-            <img class="w-16px h-16px" src="@/assets/atable/daochu@2x.png" />
-          </div> -->
 
           <ElPopover placement="bottom-start" trigger="click">
             <template #reference>
@@ -70,10 +63,8 @@
         <template #title>
           <div class="flex items-center ml-[-10px]">
             <Icon icon="ep:warning" />
-            <span class="ml-5px">{{ t('common.selected') }} {{ selectionList.length }} {{ t('common.item') }}</span>
-            <ElButton type="primary" link class="ml-40px" size="small" @click="selectionClear" v-if="selectionList.length !== 0">{{
-              t('common.empty')
-            }}</ElButton>
+            <span class="ml-5px">已选择 {{ selectionList.length }} 项</span>
+            <ElButton type="primary" link class="ml-40px" size="small" @click="selectionClear" v-if="selectionList.length !== 0">清空</ElButton>
           </div>
         </template>
       </ElAlert>
@@ -107,7 +98,7 @@
       <ElTableColumn
         v-if="tableConfig.index"
         type="index"
-        :label="tableConfig.indexLabel ? tableConfig.indexLabel : t('common.index')"
+        :label="tableConfig.indexLabel ? tableConfig.indexLabel : `序号`"
         :width="tableConfig.indexWidth ? tableConfig.indexWidth : 70"
         :fixed="tableConfig.indexFixed"
         :align="tableConfig.align"
@@ -143,7 +134,7 @@
       <!-- 操作栏 -->
       <template v-if="tableConfig.menu">
         <ElTableColumn
-          :label="t('common.operate')"
+          label="操作"
           :align="tableConfig.align"
           v-slot="{ row }"
           fixed="right"
@@ -159,16 +150,15 @@
             v-if="tableConfig.editBtn"
             v-permission="tableConfig.editBtnPermission ? tableConfig.editBtnPermission : 'show'"
           >
-            <span>{{ t('common.edit') }}</span>
+            <span>编辑</span>
           </ElButton>
           <ElPopconfirm
             class="popconfirm"
-            :title="t('common.delSure')"
+            title="确定要删除吗？"
             @confirm="handleDelete(row)"
             v-if="tableConfig.delBtn"
-            ,
-            :confirm-button-text="t('common.ok')"
-            :cancel-button-text="t('common.cancel')"
+            confirm-button-text="确定"
+            cancel-button-text="取消"
           >
             <template #reference>
               <ElButton
@@ -179,12 +169,12 @@
                 size="default"
                 v-permission="tableConfig.delBtnPermission ? tableConfig.delBtnPermission : 'show'"
               >
-                <span>{{ t('common.del') }}</span>
+                <span>删除</span>
               </ElButton>
             </template>
           </ElPopconfirm>
           <ElButton type="primary" link :loading="row.$viewLoading" size="default" @click="handleView(row)" v-if="tableConfig.viewBtn">
-            <span>{{ t('common.lookDetail') }}</span>
+            <span>查看详情</span>
           </ElButton>
           <slot name="menuSlot" :row="row"></slot>
         </ElTableColumn>
@@ -207,13 +197,13 @@
       />
     </section>
 
-    <ADialog v-model:show="isShowImg" width="600px" :title="t('10232')" closeOnClickModal>
+    <ADialog v-model:show="isShowImg" width="600px" title="查看图片" closeOnClickModal>
       <div class="w-100% flex items-center justify-center">
         <img class="w-100%" :src="currentImg" />
       </div>
       <template #footer>
         <ElButton @click="isShowImg = false">
-          <span>{{ t('common.closeTab') }}</span>
+          <span>关闭</span>
         </ElButton>
       </template>
     </ADialog>
@@ -239,11 +229,9 @@ import {
   ElCol,
   ElRow
 } from 'element-plus'
-import ADialog from '@/components/ADialog/indexV2.vue'
-import { isMobile } from '@/utils/util'
-import { useI18n } from '@/hooks/web/useI18n'
+import ADialog from '@/components/ADialog/index.vue'
+import { isMobile } from '@/utils'
 
-const { t } = useI18n()
 const props = defineProps<{
   options: ITableOption
   modelValue: any[]
@@ -367,16 +355,7 @@ const settingChecked = ref<any[]>([])
 const isIndeterminate = ref(true)
 
 if (tableConfig.value.fixedData) {
-  settingChecked.value = JSON.parse(localStorage.getItem('settingCheckedList') as string) || [
-    'code',
-    'l_zhCN',
-    'l_en',
-    'l_zhTW',
-    'l_th',
-    'l_km',
-    'l_fr',
-    'l_ko'
-  ]
+  settingChecked.value = JSON.parse(localStorage.getItem('settingCheckedList') as string)
 } else {
   settingChecked.value = column.value.map((item) => item.prop)
 }
@@ -387,16 +366,13 @@ watch(
     const checkedCount = val.length
     settingCheckAll.value = checkedCount === column.value.length
     isIndeterminate.value = checkedCount > 0 && checkedCount < column.value.length
-    // column.value.forEach((item) => {
-    //   item.tableDisplay = val.includes(item.prop)
-    // })
     if (tableConfig.value.fixedData) {
       localStorage.setItem('settingCheckedList', JSON.stringify(val))
     }
   },
   { deep: true, immediate: true }
 )
-const handleChangeCheckAll = (val) => {
+const handleChangeCheckAll = (val: any) => {
   settingChecked.value = val ? column.value.map((item) => item.prop) : []
 }
 // 设置图标操作-end
@@ -419,7 +395,7 @@ onMounted(() => {
   })
 })
 
-const handleEdit = (row) => {
+const handleEdit = (row: any) => {
   row.$editLoading = true
   emit('show-edit', {
     row,
@@ -429,7 +405,7 @@ const handleEdit = (row) => {
   })
 }
 
-const handleDelete = (row) => {
+const handleDelete = (row: any) => {
   row.$deleteLoading = true
   emit('delete', {
     row,
@@ -439,7 +415,7 @@ const handleDelete = (row) => {
   })
 }
 
-const handleView = (row) => {
+const handleView = (row: any) => {
   row.$viewLoading = true
   emit('show-view', {
     row,
@@ -451,7 +427,7 @@ const handleView = (row) => {
 
 const refreshSelection = () => {
   if (selectionList.value.length > 0) {
-    tableData.value.forEach((item) => {
+    tableData.value.forEach((item: any) => {
       tableRef.value!.toggleRowSelection(item, selectionList.value.find((i) => i.id === item.id) ? true : false)
     })
   }
@@ -474,21 +450,21 @@ const selectionClear = () => {
   selectionList.value = []
 }
 
-const handleSelectAll = (val) => {
+const handleSelectAll = (val: any) => {
   if (val.length == 0) {
-    tableData.value.forEach((item) => {
+    tableData.value.forEach((item: any) => {
       selectionList.value = selectionList.value.filter((i) => i.id !== item.id)
     })
     return
   }
-  val.forEach((item) => {
+  val.forEach((item: any) => {
     if (!selectionList.value.find((i) => i.id === item.id)) {
       selectionList.value.push(item)
     }
   })
 }
 
-const handleSelectionChange = (val, row) => {
+const handleSelectionChange = (val: any, row: any) => {
   if (val.includes(row)) {
     selectionList.value.push(row)
   } else {
@@ -506,7 +482,7 @@ const toggleSelection = (row: any, type: boolean) => {
   tableRef.value!.toggleRowSelection(row, type)
 }
 
-const toggleSelectionList = (item, add) => {
+const toggleSelectionList = (item: any, add: any) => {
   if (add) {
     selectionList.value.push(item)
     return
@@ -515,7 +491,7 @@ const toggleSelectionList = (item, add) => {
   }
 }
 
-const handleViewImg = (url) => {
+const handleViewImg = (url: any) => {
   currentImg.value = url
   isShowImg.value = true
 }

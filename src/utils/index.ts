@@ -32,3 +32,34 @@ export const resetConfigLayout = () => {
   removeConfigLayout()
   location.reload()
 }
+
+/**
+ * 输入一个树，返回所有节点的id
+ */
+export const getAllNodeIds = (trees: any) => {
+  const ids: any[] = []
+  function traverse(node: any) {
+    ids.push(node.id)
+    if (node.children && node.children.length > 0) {
+      for (const child of node.children) {
+        traverse(child)
+      }
+    }
+  }
+  for (const tree of trees) {
+    traverse(tree)
+  }
+  return ids
+}
+
+export const isMobile = () => {
+  return window.innerWidth <= 600
+}
+
+export const sleep = (time: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('')
+    }, time)
+  })
+}

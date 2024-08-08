@@ -114,7 +114,7 @@ export interface IColumn {
   /**
    * 数据格式化
    */
-  formatter?: object
+  formatter?: (row: any) => any
   /**
    * 编辑时是否禁用
    */

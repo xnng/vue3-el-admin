@@ -1,3 +1,8 @@
+/**
+ * 检测仅必填
+ */
+export const notNull = () => /^.+$/
+
 /** 判断是否为数组 */
 export const isArray = (arg: unknown) => {
   return Array.isArray ? Array.isArray(arg) : Object.prototype.toString.call(arg) === '[object Array]'

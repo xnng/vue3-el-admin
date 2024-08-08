@@ -26,8 +26,6 @@
 <script lang="ts">
 import { ElSelect, ElOption } from 'element-plus'
 import { defineComponent, ref } from 'vue'
-import { useI18n } from '@/hooks/web/useI18n'
-const { t } = useI18n()
 
 const dicData: any[] = []
 const domList: any[] = []
@@ -48,7 +46,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: t('common.selectText')
+      default: '请选择'
     },
     disabled: {
       type: Boolean,
@@ -132,9 +130,9 @@ export default defineComponent({
     this.pagination.pageSize = this.pageSize
   },
   methods: {
-    uniqueArray(array, field) {
+    uniqueArray(array: any, field: any) {
       const uniqueMap = new Map()
-      array.forEach((obj) => {
+      array.forEach((obj: any) => {
         const key = obj[field]
         if (!uniqueMap.has(key)) {
           uniqueMap.set(key, obj)
@@ -142,7 +140,7 @@ export default defineComponent({
       })
       return Array.from(uniqueMap.values())
     },
-    handleChange(val) {
+    handleChange(val: any) {
       this.$emit('change', val)
       this.$emit('update:modelValue', val)
     },
@@ -230,7 +228,7 @@ export default defineComponent({
         let fetchData = result.data || []
         fetchData = this.format(fetchData)
         fetchData =
-          fetchData?.map((item) => ({
+          fetchData?.map((item: any) => ({
             label: item[this.labelKey],
             value: item[this.valueKey]
           })) || []

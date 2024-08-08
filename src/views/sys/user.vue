@@ -54,7 +54,7 @@ const pagination = ref<any>({
   pageSize: 15,
   total: 0
 })
-const refresh = async ({ done }) => {
+const refresh = async ({ done }: any) => {
   try {
     await getList()
   } finally {
@@ -97,7 +97,7 @@ const handleReset = () => {
   searchForm.value = {}
 }
 //搜索
-const handleSearch = async ({ done }) => {
+const handleSearch = async ({ done }: any) => {
   pagination.value.currentPage = 1
   try {
     await getList()
@@ -125,7 +125,7 @@ const changeStatus = async (row: any) => {
 const roleDialog = ref<boolean>(false)
 const checkRole = ref(0)
 const checkUid = ref(0)
-const bindRole = (row) => {
+const bindRole = (row: any) => {
   checkUid.value = row.uid
   checkRole.value = row.roleId
   roleDialog.value = true
@@ -135,7 +135,7 @@ const handleClose = () => {
   checkRole.value = 0
 }
 
-const handleConfirm = async ({ done }) => {
+const handleConfirm = async ({ done }: any) => {
   try {
     const res = await bindRoleApi({
       uid: checkUid.value,

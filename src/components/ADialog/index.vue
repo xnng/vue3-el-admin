@@ -30,7 +30,7 @@
                   </template>
                   <ElInput
                     v-if="['text', 'number'].includes(col.type) && !col.editSlot"
-                    :placeholder="`${t('common.inputText')} ${col.label}`"
+                    :placeholder="`请输入 ${col.label}`"
                     :clearable="col.clearable"
                     :maxlength="col.maxlength ? col.maxlength : ''"
                     :size="col.size ? col.size : 'default'"
@@ -47,7 +47,7 @@
                     v-model="editValue[col.prop]"
                     type="date"
                     :clearable="col.clearable"
-                    :placeholder="`${t('common.selectText')} ${col.label}`"
+                    :placeholder="`请选择 ${col.label}`"
                     :style="`width: ${col.searchWidth ? `${col.searchWidth}px` : '100%'}`"
                     :disabled="isEdit && col.editDisabled"
                   />
@@ -58,14 +58,14 @@
                     type="datetime"
                     :disabled-date="col.disabledDate"
                     :clearable="col.clearable"
-                    :placeholder="`${t('common.selectText')} ${col.label}`"
+                    :placeholder="`请选择 ${col.label}`"
                     :style="`width: ${col.searchWidth ? `${col.searchWidth}px` : '100%'}`"
                     :disabled="isEdit && col.editDisabled"
                   />
 
                   <ElInput
                     v-if="col.type == 'textarea' && !col.editSlot"
-                    :placeholder="`${t('common.inputText')} ${col.label}`"
+                    :placeholder="`请输入 ${col.label}`"
                     :clearable="col.clearable"
                     :size="col.size ? col.size : 'default'"
                     :maxlength="col.maxlength ? col.maxlength : ''"
@@ -85,7 +85,7 @@
                     v-if="col.type == 'select' && !col.editSlot"
                     v-model="editValue[col.prop]"
                     :multiple="col.multiple"
-                    :placeholder="`${t('common.selectText')} ${col.label}`"
+                    :placeholder="`请选择 ${col.label}`"
                     :size="col.size ? col.size : 'default'"
                     :style="`width: ${col.searchWidth ? `${col.searchWidth}px` : '100%'}`"
                     :disabled="isEdit && col.editDisabled"
@@ -113,10 +113,10 @@
         <slot name="footer" v-if="slotFooter"></slot>
         <div v-else>
           <ElButton @click="dialogClose">
-            <span>{{ t(cancelText) }}</span>
+            <span>{{ cancelText }}</span>
           </ElButton>
           <ElButton type="primary" @click="dialogConfirm" :loading="confirmLoading">
-            <span>{{ t(confirmText) }}</span>
+            <span>{{ confirmText }}</span>
           </ElButton>
         </div>
       </template>
@@ -145,10 +145,8 @@ import { ref } from 'vue'
 import { IColumn } from '../ATable/CrudTypes'
 import { toRef } from 'vue'
 import { notNull } from '@/utils/validate'
-import { useI18n } from '@/hooks/web/useI18n'
-import { isMobile } from '@/utils/util'
+import { isMobile } from '@/utils'
 
-const { t } = useI18n()
 const props = defineProps({
   column: { type: Array as PropType<IColumn[]>, default: () => [] },
   modelValue: { type: Object, default: () => ({}) },
@@ -159,8 +157,8 @@ const props = defineProps({
   width: { type: String, default: '40%' },
   top: { type: String, default: '10vh' },
   center: { type: Boolean, default: false },
-  cancelText: { type: String, default: 'common.cancel' },
-  confirmText: { type: String, default: 'common.ok' },
+  cancelText: { type: String, default: '取消' },
+  confirmText: { type: String, default: '确定' },
   isView: { type: Boolean, default: false }
 })
 const slotFooter = !!useSlots().footer
