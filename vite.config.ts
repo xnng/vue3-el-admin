@@ -45,6 +45,14 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         clientFiles: ['./src/layouts/**/*.vue']
       }
     },
+    css: {
+      preprocessorOptions: {
+        // 支持使用 less
+        less: {
+          javascriptEnabled: true
+        }
+      }
+    },
     build: {
       /** 单个 chunk 文件的大小超过 2048KB 时发出警告 */
       chunkSizeWarningLimit: 2048,

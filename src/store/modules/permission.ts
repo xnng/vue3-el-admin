@@ -6,7 +6,7 @@ import { constantRoutes, dynamicRoutes } from '@/router'
 import { filterRoutesByWhitelist, flatMultiLevelRoutes } from '@/router/helper'
 import routeSettings from '@/config/route'
 
-const whiteList = ['/permission', '/permission/page']
+const whiteList = ['/set/', '/set/user', '/set/permission', '/set/role']
 
 export const usePermissionStore = defineStore('permission', () => {
   /** 可访问的路由 */
