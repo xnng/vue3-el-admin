@@ -49,9 +49,6 @@ export const useUserStore = defineStore('user', {
           this.routerList = routerList
           this.btnList = btnList
           this.setRoutes()
-          if (routerList.length === 0) {
-            throw new Error('权限菜单为空')
-          }
         } else {
           throw new Error(menuRes.msg)
         }
@@ -65,7 +62,6 @@ export const useUserStore = defineStore('user', {
       accessedRoutes.forEach((route) => {
         router.addRoute(route)
       })
-      console.log('router', router.getRoutes())
     }
   }
 })

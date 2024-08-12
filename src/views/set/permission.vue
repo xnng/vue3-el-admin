@@ -88,11 +88,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 import { tableOption } from './options/permission'
 import ATable from '@/components/ATable/index.vue'
 import ADialog from '@/components/ADialog/index.vue'
 import { ElButton, ElTag, ElTree } from 'element-plus'
+import ACard from '@/components/ACard/index.vue'
 import {
   addPermissionApi,
   editPermissionApi,
@@ -240,9 +241,9 @@ const getApiList = async () => {
   }
 }
 
-onMounted(() => {
-  getApiList()
-})
+// onMounted(() => {
+//   getApiList()
+// })
 
 const handleConfirm = async ({ done }: any) => {
   try {

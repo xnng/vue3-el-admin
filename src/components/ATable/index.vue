@@ -10,7 +10,7 @@
           @click="handleAdd"
           v-permission="tableConfig.addBtnPermission ? tableConfig.addBtnPermission : 'show'"
         >
-          <Icon icon="ep:plus" />
+          <!-- <Icon icon="ep:plus" /> -->
           <span>新增</span>
         </ElButton>
 
@@ -62,7 +62,7 @@
       <ElAlert type="warning" :closable="false" v-if="tableConfig.selection">
         <template #title>
           <div class="flex items-center ml-[-10px]">
-            <Icon icon="ep:warning" />
+            <!-- <Icon icon="ep:warning" /> -->
             <span class="ml-5px">已选择 {{ selectionList.length }} 项</span>
             <ElButton type="primary" link class="ml-40px" size="small" @click="selectionClear" v-if="selectionList.length !== 0">清空</ElButton>
           </div>

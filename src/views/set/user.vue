@@ -4,21 +4,8 @@
     <ATable :options="tableOption" v-model="tableData" v-model:pagination="pagination" @refresh="refresh" @fetch="refresh">
       <template #name="scoped">
         <div class="flex items-center gap-[10px]">
-          <img :src="scoped.row.avatar" class="w-[40px] h-[40px] rounded-[50%]" alt="" />
           <span>{{ scoped.row.name }}</span>
         </div>
-      </template>
-      <template #role="scoped">{{ scoped.row.role.name }} </template>
-      <template #status="scoped">
-        <ElSwitch
-          v-model="scoped.row.isAdmin"
-          inline-prompt
-          :active-value="true"
-          :inactive-value="false"
-          active-text="是"
-          inactive-text="否"
-          @change="changeStatus(scoped.row)"
-        />
       </template>
       <template #menuSlot="{ row }">
         <ElButton type="primary" link size="default" @click="bindRole(row)">绑定角色</ElButton>
@@ -36,7 +23,7 @@
   </ACard>
 </template>
 <script setup lang="ts">
-import { ElButton, ElRadio, ElRadioGroup, ElSwitch } from 'element-plus'
+import { ElButton, ElRadio, ElRadioGroup } from 'element-plus'
 import ASearch from '@/components/ASearch/index.vue'
 import ATable from '@/components/ATable/index.vue'
 import ACard from '@/components/ACard/index.vue'
@@ -44,8 +31,9 @@ import ADialog from '@/components/ADialog/index.vue'
 import message from '@/utils/singleMessage'
 import { tableOption } from './options/user'
 import { ref, onMounted } from 'vue'
-import { getUserListApi, toggleAdminApi, bindRoleApi } from '@/api/set/user'
+import { getUserListApi, bindRoleApi } from '@/api/set/user'
 import { getRoleApi } from '@/api/set/role'
+
 const boxLoading = ref<boolean>(false)
 const searchForm = ref<any>({})
 const tableData = ref<any>([])
@@ -103,22 +91,6 @@ const handleSearch = async ({ done }: any) => {
     await getList()
   } finally {
     done()
-  }
-}
-
-// 设为管理员
-const changeStatus = async (row: any) => {
-  console.log(row)
-  try {
-    const res = await toggleAdminApi({
-      uid: row.uid,
-      isAdmin: row.isAdmin
-    })
-    if (res.success) {
-      message.success('操作成功')
-    }
-  } finally {
-    getList()
   }
 }
 

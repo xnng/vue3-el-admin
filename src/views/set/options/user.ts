@@ -23,11 +23,6 @@ export const tableOption: ITableOption = {
       search: true
     },
     {
-      label: '邮箱',
-      prop: 'email',
-      formatter: (row: any) => row.email || '--'
-    },
-    {
       label: '角色',
       prop: 'role',
       slot: true

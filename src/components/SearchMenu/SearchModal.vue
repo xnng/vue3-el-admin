@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { computed, ref, shallowRef } from 'vue'
 import { type RouteRecordName, type RouteRecordRaw, useRouter } from 'vue-router'
-import { usePermissionStore } from '@/store/modules/permission'
 import SearchResult from './SearchResult.vue'
 import SearchFooter from './SearchFooter.vue'
 import { ElMessage, ElScrollbar } from 'element-plus'
 import { cloneDeep, debounce } from 'lodash-es'
 import { useDevice } from '@/hooks/useDevice'
 import { isExternal } from '@/utils/validate'
+import { useUserStore } from '@/store/user'
 
 /** 控制 modal 显隐 */
 const modelValue = defineModel<boolean>({ required: true })
@@ -28,7 +28,7 @@ const isPressUpOrDown = ref<boolean>(false)
 /** 控制搜索对话框宽度 */
 const modalWidth = computed(() => (isMobile.value ? '80vw' : '40vw'))
 /** 树形菜单 */
-const menusData = computed(() => cloneDeep(usePermissionStore().routes))
+const menusData = computed(() => cloneDeep(useUserStore().fullRoutes))
 
 /** 搜索（防抖） */
 const handleSearch = debounce(() => {

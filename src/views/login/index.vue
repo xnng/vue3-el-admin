@@ -83,7 +83,7 @@ const handleLogin = async () => {
       type: '3',
       password: loginForm.password
     })
-    userStore.toggleGetMenuStatus(false)
+    await userStore.getMenu()
     singleMessage.success('登录成功')
     router.push('/set/user')
   } catch (err) {

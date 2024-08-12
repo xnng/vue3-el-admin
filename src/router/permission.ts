@@ -20,19 +20,9 @@ router.beforeEach(async (to, _from, next) => {
   }
 
   if (to.path === '/login') {
-    return next({ path: '/' })
+    return next({ path: '/set/user' })
   }
-
-  if (userStore.hasGetMenu) {
-    return next()
-  } else {
-    try {
-      await userStore.getMenu()
-      next({ ...to, replace: true })
-    } catch (err: any) {
-      next('/login')
-    }
-  }
+  return next()
 })
 
 router.afterEach((to) => {

@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import { tableOption } from './options/permission'
+import { tableOption } from './options/role'
 import ATable from '@/components/ATable/index.vue'
 import ADialog from '@/components/ADialog/index.vue'
 import { ElButton, ElTree } from 'element-plus'
@@ -67,6 +67,7 @@ import {
   getRolePermissionListApi
 } from '@/api/set/role'
 import singleMessage from '@/utils/singleMessage'
+import ACard from '@/components/ACard/index.vue'
 import { getAllNodeIds } from '@/utils'
 
 const dialogColumn = ref(tableOption.column)
