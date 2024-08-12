@@ -2,11 +2,15 @@
 import { useTheme } from '@/hooks/useTheme'
 // 将 Element Plus 的语言设置为中文
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import { useUserStore } from './store/user'
 
 const { initTheme } = useTheme()
 
 /** 初始化主题 */
 initTheme()
+
+const userStore = useUserStore()
+userStore.toggleGetMenuStatus(false)
 </script>
 
 <template>

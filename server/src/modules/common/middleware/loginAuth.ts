@@ -48,7 +48,11 @@ export class LoginAuthMiddleware
       ) {
         await next();
       } else {
-        const token = ctx.headers['authorization'];
+        const authHeader = ctx.headers['authorization'];
+        let token = null;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+          token = authHeader.slice(7).trim();
+        }
         if (!token) {
           this.logger.warn(
             `未找到token, ip: ${ip}, ${ctx.path}`,

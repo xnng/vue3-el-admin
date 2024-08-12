@@ -44,9 +44,13 @@
 import { ElButton, ElForm, ElFormItem, ElInput, FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { isMobile } from '@/utils'
-// import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/store/user'
+import singleMessage from '@/utils/singleMessage'
+import { useRouter } from 'vue-router'
 
-// const userStore = useUserStore()
+const router = useRouter()
+
+const userStore = useUserStore()
 
 const loginForm = reactive({
   username: '',
@@ -74,7 +78,18 @@ const loginFormRules = reactive<FormRules<any>>({
 const handleLogin = async () => {
   loginLoading.value = true
   try {
-    console.log('o')
+    await userStore.login({
+      name: loginForm.username,
+      type: '3',
+      password: loginForm.password
+    })
+    userStore.toggleGetMenuStatus(false)
+    singleMessage.success('登录成功')
+    router.push('/set/user')
+  } catch (err) {
+    console.log('err', err)
+    const error = err as Error
+    singleMessage.error(error.message)
   } finally {
     loginLoading.value = false
   }

@@ -2,13 +2,13 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/store/modules/app'
-import { usePermissionStore } from '@/store/modules/permission'
 import { useSettingsStore } from '@/store/modules/settings'
 import SidebarItem from './SidebarItem.vue'
 import Logo from '../Logo/index.vue'
 import { useDevice } from '@/hooks/useDevice'
 import { useLayoutMode } from '@/hooks/useLayoutMode'
 import { getCssVariableValue } from '@/utils'
+import { useUserStore } from '@/store/user'
 
 const v3SidebarMenuBgColor = getCssVariableValue('--v3-sidebar-menu-bg-color')
 const v3SidebarMenuTextColor = getCssVariableValue('--v3-sidebar-menu-text-color')
@@ -18,7 +18,6 @@ const { isMobile } = useDevice()
 const { isLeft, isTop } = useLayoutMode()
 const route = useRoute()
 const appStore = useAppStore()
-const permissionStore = usePermissionStore()
 const settingsStore = useSettingsStore()
 
 const activeMenu = computed(() => {
@@ -28,7 +27,8 @@ const activeMenu = computed(() => {
   } = route
   return activeMenu ? activeMenu : path
 })
-const noHiddenRoutes = computed(() => permissionStore.routes.filter((item) => !item.meta?.hidden))
+const userStore = useUserStore()
+const noHiddenRoutes = computed(() => userStore.fullRoutes.filter((item) => !item.meta?.hidden))
 const isCollapse = computed(() => !appStore.sidebar.opened)
 const isLogo = computed(() => isLeft.value && settingsStore.showLogo)
 const backgroundColor = computed(() => (isLeft.value ? v3SidebarMenuBgColor : undefined))

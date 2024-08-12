@@ -67,6 +67,11 @@ export class RbacMiddleware
       }
 
       const roleId = ctx.user.roleId;
+      // 测试账号，放行
+      if (roleId == -2) {
+        await next();
+        return;
+      }
       // 使用正则表达式去掉路径末尾的数字部分
       const removeTrailingNumbers = (url: string) => {
         return url.replace(/\/\d+$/, '');

@@ -1,32 +1,22 @@
-import { Config, Inject, Provide } from '@midwayjs/core';
+import { Inject, Provide } from '@midwayjs/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
-import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 import { BaseClass } from '../../../../core/baseClass';
 import { BaseUser } from '../../entity/baseUser';
 import { FeishuAppUtils } from '../../utils/feishu/app';
 import { ILoginRes, UserStrategy } from './userStrategy';
+import { CommonUtils } from '../../utils/common';
 
 @Provide()
 export class FeishuImpl extends BaseClass implements UserStrategy {
   @InjectEntityModel(BaseUser)
   userModel: Repository<BaseUser>;
 
-  @Config('jwt')
-  jwtConfig;
-
   @Inject()
   feishuAppUtils: FeishuAppUtils;
 
-  signToken(user: BaseUser): string {
-    return jwt.sign(
-      { userId: user.id, tokenFlag: user.tokenFlag },
-      this.jwtConfig.code,
-      {
-        expiresIn: this.jwtConfig.expiresIn,
-      }
-    );
-  }
+  @Inject()
+  commonUtils: CommonUtils;
 
   async login(payload: any): Promise<ILoginRes> {
     const getUserInfoRes = await this.feishuAppUtils.getUserInfoByCode(
@@ -54,7 +44,7 @@ export class FeishuImpl extends BaseClass implements UserStrategy {
     }
     return this.success({
       user,
-      token: this.signToken(user),
+      token: this.commonUtils.signToken(user),
     });
   }
 }

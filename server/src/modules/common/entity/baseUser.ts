@@ -8,16 +8,19 @@ export class BaseUser extends BaseModel {
   @Index()
   uid: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
+  password: string;
+
+  @Column({ nullable: true })
   mobile: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
   @Column({

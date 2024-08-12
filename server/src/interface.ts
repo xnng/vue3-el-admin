@@ -46,6 +46,7 @@ export enum EBucketType {
 export enum EUserLoginType {
   '飞书应用网页登录' = '1',
   '微信小程序登录' = '2',
+  'CMS登录' = '3',
 }
 
 export enum ERabbitQueue {

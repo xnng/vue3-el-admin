@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosRequestHeade
 
 import qs from 'qs'
 import singleMessage from '@/utils/singleMessage'
-import { useUserStore } from '@/store/modules/user'
+import { useUserStore } from '@/store/user'
 import { IResponse } from '.'
 
 let globalUrl = ''
@@ -62,7 +62,7 @@ const resErrorInterceptors = (error: AxiosError) => {
   }
   if (status === 401) {
     singleMessage.warning('登录已过期，请重新登录')
-    // useUserStore().logOut()
+    useUserStore().logOut()
     return Promise.reject(new Error('登录已过期，请重新登录'))
   }
   if ([503, 502].includes(status)) {

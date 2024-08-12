@@ -2,8 +2,8 @@ import { AxiosRequestConfig } from 'axios'
 import service from './service'
 
 export interface IResponse<T = any> {
-  success: any
-  code: string | number
+  success: boolean
+  msg: string
   data: T extends any ? T : T & any
 }
 
