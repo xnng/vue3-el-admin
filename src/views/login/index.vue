@@ -1,177 +1,168 @@
-<script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
-import { type FormInstance, type FormRules } from 'element-plus'
-import { User, Lock, Key, Picture, Loading } from '@element-plus/icons-vue'
-import { getLoginCodeApi } from '@/api/login'
-import { type LoginRequestData } from '@/api/login/types/login'
-import ThemeSwitch from '@/components/ThemeSwitch/index.vue'
-import Owl from './components/Owl.vue'
-import { useFocus } from './hooks/useFocus'
-
-const router = useRouter()
-const { isFocus, handleBlur, handleFocus } = useFocus()
-
-/** 登录表单元素的引用 */
-const loginFormRef = ref<FormInstance | null>(null)
-
-/** 登录按钮 Loading */
-const loading = ref(false)
-/** 验证码图片 URL */
-const codeUrl = ref('')
-/** 登录表单数据 */
-const loginFormData: LoginRequestData = reactive({
-  username: 'admin',
-  password: '12345678',
-  code: ''
-})
-/** 登录表单校验规则 */
-const loginFormRules: FormRules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' }
-  ],
-  code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
-}
-/** 登录逻辑 */
-const handleLogin = () => {
-  loginFormRef.value?.validate((valid: boolean, fields) => {
-    if (valid) {
-      loading.value = true
-      useUserStore()
-        .login(loginFormData)
-        .then(() => {
-          router.push({ path: '/' })
-        })
-        .catch(() => {
-          createCode()
-          loginFormData.password = ''
-        })
-        .finally(() => {
-          loading.value = false
-        })
-    } else {
-      console.error('表单校验不通过', fields)
-    }
-  })
-}
-/** 创建验证码 */
-const createCode = () => {
-  // 先清空验证码的输入
-  loginFormData.code = ''
-  // 获取验证码
-  codeUrl.value = ''
-  getLoginCodeApi().then((res) => {
-    codeUrl.value = res.data
-  })
-}
-
-/** 初始化验证码 */
-createCode()
-</script>
-
 <template>
-  <div class="login-container">
-    <ThemeSwitch class="theme-switch" />
-    <Owl :close-eyes="isFocus" />
-    <div class="login-card">
-      <div class="title">
-        <img src="@/assets/layouts/logo-text-2.png" />
-      </div>
-      <div class="content">
-        <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
-          <el-form-item prop="username">
-            <el-input v-model.trim="loginFormData.username" placeholder="用户名" type="text" tabindex="1" :prefix-icon="User" size="large" />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              v-model.trim="loginFormData.password"
-              placeholder="密码"
-              type="password"
-              tabindex="2"
-              :prefix-icon="Lock"
-              size="large"
-              show-password
-              @blur="handleBlur"
-              @focus="handleFocus"
-            />
-          </el-form-item>
-          <el-form-item prop="code">
-            <el-input v-model.trim="loginFormData.code" placeholder="验证码" type="text" tabindex="3" :prefix-icon="Key" maxlength="7" size="large">
-              <template #append>
-                <el-image :src="codeUrl" @click="createCode" draggable="false">
-                  <template #placeholder>
-                    <el-icon>
-                      <Picture />
-                    </el-icon>
-                  </template>
-                  <template #error>
-                    <el-icon>
-                      <Loading />
-                    </el-icon>
-                  </template>
-                </el-image>
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-button :loading="loading" type="primary" size="large" @click.prevent="handleLogin">登 录</el-button>
-        </el-form>
+  <div v-if="isMobile()" class="mobilebox">
+    <div class="mobilebox-title">测试项目</div>
+
+    <div class="mobilebox-form">
+      <ElForm ref="loginFormRef" label-position="top" label-width="100px" size="large" :model="loginForm" :rules="loginFormRules">
+        <ElFormItem label="用户名" prop="username">
+          <ElInput placeholder="请输入用户名" v-model="loginForm.username" />
+        </ElFormItem>
+        <ElFormItem label="密码" prop="password">
+          <ElInput placeholder="请输入密码" type="password" v-model="loginForm.password" @keyup.enter="checkLogin(loginFormRef)" show-password />
+        </ElFormItem>
+      </ElForm>
+      <ElButton :loading="loginLoading" type="primary" style="width: 100%; margin-top: 3vh" size="large" @click="checkLogin(loginFormRef)">
+        登录
+      </ElButton>
+    </div>
+  </div>
+
+  <div class="pcbox" v-else>
+    <div class="pcbox-row">
+      <img src="@/assets/imgs/login.png" alt="" />
+      <div class="login">
+        <div class="login-title">账户登录</div>
+        <div class="login-form">
+          <ElForm ref="loginFormRef" label-position="top" label-width="100px" size="large" :model="loginForm" :rules="loginFormRules">
+            <ElFormItem label="账号" prop="username">
+              <ElInput placeholder="请输入账号" v-model="loginForm.username" />
+            </ElFormItem>
+            <ElFormItem label="密码" prop="password">
+              <ElInput placeholder="请输入密码" type="password" v-model="loginForm.password" @keyup.enter="checkLogin(loginFormRef)" show-password />
+            </ElFormItem>
+          </ElForm>
+        </div>
+        <div class="login-btn">
+          <ElButton :loading="loginLoading" type="primary" style="width: 100%" size="large" @click="checkLogin(loginFormRef)">登录</ElButton>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.login-container {
+<script setup lang="ts">
+import { ElButton, ElForm, ElFormItem, ElInput, FormInstance, FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+import { isMobile } from '@/utils'
+// import { useUserStore } from '@/store/user'
+
+// const userStore = useUserStore()
+
+const loginForm = reactive({
+  username: '',
+  password: ''
+})
+const loginLoading = ref(false)
+const loginFormRef = ref<FormInstance>()
+const loginFormRules = reactive<FormRules<any>>({
+  username: [
+    {
+      required: true,
+      message: '请输入账号',
+      trigger: ['blur', 'change']
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '请输入密码',
+      trigger: ['blur', 'change']
+    }
+  ]
+})
+
+const handleLogin = async () => {
+  loginLoading.value = true
+  try {
+    console.log('o')
+  } finally {
+    loginLoading.value = false
+  }
+}
+
+const checkLogin = (loginFormRef: FormInstance | undefined) => {
+  if (!loginFormRef) return
+  loginFormRef.validate((valid: boolean) => {
+    if (valid) {
+      handleLogin()
+    } else {
+      return
+    }
+  })
+}
+</script>
+
+<style lang="less" scoped>
+.pcbox {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f6f8fd;
+  position: relative;
+  &-row {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 527px;
+      height: 473px;
+      margin-right: 70px;
+    }
+  }
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 36px 40px;
+  &-title {
+    color: #212c67;
+    font-size: 20px;
+  }
+}
+.login {
+  width: 450px;
+  height: 490px;
+  box-shadow: 0px 14px 29px 0px #dee1ff;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 100%;
-  .theme-switch {
-    position: fixed;
-    top: 5%;
-    right: 5%;
-    cursor: pointer;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 50px;
+  &-title {
+    font-weight: 600;
+    color: #212c67;
+    font-size: 30px;
   }
-  .login-card {
-    width: 480px;
-    max-width: 90%;
-    border-radius: 20px;
-    box-shadow: 0 0 10px #dcdfe6;
-    background-color: var(--el-bg-color);
-    overflow: hidden;
-    .title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 150px;
-      img {
-        height: 100%;
-      }
-    }
-    .content {
-      padding: 20px 50px 50px 50px;
-      :deep(.el-input-group__append) {
-        padding: 0;
-        overflow: hidden;
-        .el-image {
-          width: 100px;
-          height: 40px;
-          border-left: 0px;
-          user-select: none;
-          cursor: pointer;
-          text-align: center;
-        }
-      }
-      .el-button {
-        width: 100%;
-        margin-top: 10px;
-      }
-    }
+  &-form {
+    margin-top: 34px;
+    width: 100%;
+  }
+  &-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+.mobilebox {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 0 20px;
+  &-title {
+    width: 100%;
+    text-align: center;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+    font-size: 28px;
   }
 }
 </style>
