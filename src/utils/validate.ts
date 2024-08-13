@@ -25,22 +25,10 @@ export const isUrl = (url: string) => {
   return reg.test(url)
 }
 
-/** 判断是否为网址或 IP（带端口） */
-export const isUrlPort = (url: string) => {
-  const reg = /^((ht|f)tps?:\/\/)?[\w-]+(\.[\w-]+)+:\d{1,5}\/?$/
-  return reg.test(url)
-}
-
 /** 判断是否为域名（不带协议） */
 export const isDomain = (domain: string) => {
   const reg = /^([0-9a-zA-Z-]{1,}\.)+([a-zA-Z]{2,})$/
   return reg.test(domain)
-}
-
-/** 判断版本号格式是否为 X.Y.Z */
-export const isVersion = (version: string) => {
-  const reg = /^\d+(?:\.\d+){2}$/
-  return reg.test(version)
 }
 
 /** 判断是否为第二代身份证（18 位） */
@@ -53,17 +41,4 @@ export const isChineseIdCard = (str: string) => {
 export const isEmail = (email: string) => {
   const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
   return reg.test(email)
-}
-
-/** 判断是否为 MAC 地址 */
-export const isMAC = (mac: string) => {
-  const reg = /^(([a-f0-9][0,2,4,6,8,a,c,e]:([a-f0-9]{2}:){4})|([a-f0-9][0,2,4,6,8,a,c,e]-([a-f0-9]{2}-){4}))[a-f0-9]{2}$/i
-  return reg.test(mac)
-}
-
-/** 判断是否为 IPv4 地址 */
-export const isIPv4 = (ip: string) => {
-  const reg =
-    /^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])(?::(?:[0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$/
-  return reg.test(ip)
 }

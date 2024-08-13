@@ -1,11 +1,9 @@
 /// <reference types="vitest" />
 
 import { type ConfigEnv, type UserConfigExport } from 'vite'
-import path, { resolve } from 'path'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import svgLoader from 'vite-svg-loader'
 import { visualizer } from 'rollup-plugin-visualizer'
 import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -94,13 +92,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         dts: true // 自动生成类型声明文件
       }),
       vueJsx(),
-      /** 将 SVG 静态图转化为 Vue 组件 */
-      svgLoader({ defaultImport: 'url' }),
-      /** SVG */
-      createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), 'src/icons/svg')],
-        symbolId: 'icon-[dir]-[name]'
-      }),
       /** UnoCSS */
       UnoCSS(),
       // 打包后生成一个 stats.html 文件，用于分析打包后的文件大小
