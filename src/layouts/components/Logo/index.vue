@@ -4,6 +4,8 @@ import logo from '@/assets/layouts/logo.png?url'
 import logoText1 from '@/assets/layouts/logo-text-1.png?url'
 import logoText2 from '@/assets/layouts/logo-text-2.png?url'
 
+const useImgLogo = false
+
 interface Props {
   collapse?: boolean
 }
@@ -22,7 +24,8 @@ const { isLeft, isTop } = useLayoutMode()
         <img :src="logo" class="layout-logo" />
       </router-link>
       <router-link v-else key="expand" to="/">
-        <img :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text" />
+        <img v-if="useImgLogo" :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text" />
+        <span v-else class="layout-logo-title">Vue3 Admin</span>
       </router-link>
     </transition>
   </div>
@@ -32,12 +35,20 @@ const { isLeft, isTop } = useLayoutMode()
 .layout-logo-container {
   position: relative;
   width: 100%;
-  height: var(--admin-header-height);
-  line-height: var(--admin-header-height);
+  height: var(--admin-navigationbar-height);
+  line-height: var(--admin-navigationbar-height);
   text-align: center;
   overflow: hidden;
   .layout-logo {
     display: none;
+    &-title {
+      font-size: 20px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
   .layout-logo-text {
     height: 100%;
