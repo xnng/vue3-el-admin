@@ -4,9 +4,8 @@ import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/store/modules/app'
 import { useSettingsStore } from '@/store/modules/settings'
 import { AppMain, NavigationBar, Sidebar, TagsView } from './components'
-import { useDevice } from '@/hooks/useDevice'
+import { isMobile } from '@/utils'
 
-const { isMobile } = useDevice()
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 const { showTagsView, fixedHeader } = storeToRefs(settingsStore)
@@ -17,7 +16,7 @@ const layoutClasses = computed(() => {
     hideSidebar: !appStore.sidebar.opened,
     openSidebar: appStore.sidebar.opened,
     withoutAnimation: appStore.sidebar.withoutAnimation,
-    mobile: isMobile.value
+    mobile: isMobile()
   }
 })
 

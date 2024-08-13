@@ -2,9 +2,13 @@ import { ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from './settings'
 import { type RouteLocationNormalized } from 'vue-router'
-import { getVisitedViews, setVisitedViews, getCachedViews, setCachedViews } from '@/utils/cache/local-storage'
 
 export type TagView = Partial<RouteLocationNormalized>
+
+const setVisitedViews = (views: TagView[]) => localStorage.setItem('visitedViews', JSON.stringify(views))
+const getVisitedViews = () => JSON.parse(localStorage.getItem('visitedViews') || '[]') as TagView[]
+const setCachedViews = (views: string[]) => localStorage.setItem('cachedViews', JSON.stringify(views))
+const getCachedViews = () => JSON.parse(localStorage.getItem('cachedViews') || '[]') as string[]
 
 export const useTagsViewStore = defineStore('tags-view', () => {
   const { cacheTagsView } = useSettingsStore()

@@ -47,7 +47,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
     name: 'Set',
     meta: {
       title: '权限管理',
-      elIcon: 'setting'
+      icon: 'ep:setting'
     },
     children: [
       {
@@ -55,7 +55,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         name: 'UserList',
         meta: {
           title: '用户列表',
-          elIcon: 'user'
+          icon: 'ep:user'
         },
         component: () => import('@/views/set/user.vue')
       },
@@ -64,7 +64,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         name: 'Permission',
         meta: {
           title: '权限列表',
-          elIcon: 'lock'
+          icon: 'ep:lock'
         },
         component: () => import('@/views/set/permission.vue')
       },
@@ -73,7 +73,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
         name: 'Role',
         meta: {
           title: '角色列表',
-          elIcon: 'user'
+          icon: 'ep:user'
         },
         component: () => import('@/views/set/role.vue')
       }

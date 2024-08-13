@@ -5,20 +5,20 @@ import { useAppStore } from '@/store/modules/app'
 import { useSettingsStore } from '@/store/modules/settings'
 import SidebarItem from './SidebarItem.vue'
 import Logo from '../Logo/index.vue'
-import { useDevice } from '@/hooks/useDevice'
 import { useLayoutMode } from '@/hooks/useLayoutMode'
 import { getCssVariableValue } from '@/utils'
 import { useUserStore } from '@/store/user'
+import { isMobile as mobileStatus } from '@/utils'
 
 const v3SidebarMenuBgColor = getCssVariableValue('--admin-sidebar-menu-bg-color')
 const v3SidebarMenuTextColor = getCssVariableValue('--admin-sidebar-menu-text-color')
 const v3SidebarMenuActiveTextColor = getCssVariableValue('--admin-sidebar-menu-active-text-color')
 
-const { isMobile } = useDevice()
 const { isLeft, isTop } = useLayoutMode()
 const route = useRoute()
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
+const isMobile = computed(() => mobileStatus())
 
 const activeMenu = computed(() => {
   const {

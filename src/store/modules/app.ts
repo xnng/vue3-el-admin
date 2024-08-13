@@ -1,12 +1,14 @@
 import { reactive, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { getSidebarStatus, setSidebarStatus } from '@/utils/cache/local-storage'
 import { DeviceEnum, SIDEBAR_OPENED, SIDEBAR_CLOSED } from '@/constants/app-key'
 
 interface Sidebar {
   opened: boolean
   withoutAnimation: boolean
 }
+
+const setSidebarStatus = (status: string) => localStorage.setItem('sidebarStatus', status)
+const getSidebarStatus = () => localStorage.getItem('sidebarStatus') || SIDEBAR_OPENED
 
 /** 设置侧边栏状态本地缓存 */
 function handleSidebarStatus(opened: boolean) {

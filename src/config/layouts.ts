@@ -1,4 +1,3 @@
-import { getConfigLayout } from '@/utils/cache/local-storage'
 import { LayoutModeEnum } from '@/constants/app-key'
 
 /** 项目配置类型 */
@@ -52,4 +51,4 @@ const defaultSettings: LayoutSettings = {
 }
 
 /** 项目配置 */
-export const layoutSettings: LayoutSettings = { ...defaultSettings, ...getConfigLayout() }
+export const layoutSettings: LayoutSettings = { ...defaultSettings }

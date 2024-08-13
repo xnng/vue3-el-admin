@@ -1,7 +1,6 @@
-import { type Ref, ref, watch } from 'vue'
+import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { type LayoutSettings, layoutSettings } from '@/config/layouts'
-import { setConfigLayout } from '@/utils/cache/local-storage'
 
 type SettingsStore = {
   // 使用映射类型来遍历 layoutSettings 对象的键
@@ -19,21 +18,6 @@ export const useSettingsStore = defineStore('settings', () => {
     const refValue = ref(value)
     // @ts-ignore
     state[key as SettingsStoreKey] = refValue
-    // 监听每个响应式变量
-    watch(refValue, () => {
-      // 缓存
-      const settings = _getCacheData()
-      setConfigLayout(settings)
-    })
-  }
-  /** 获取要缓存的数据：将 state 对象转化为 settings 对象 */
-  const _getCacheData = () => {
-    const settings = {} as LayoutSettings
-    for (const [key, value] of Object.entries(state)) {
-      // @ts-ignore
-      settings[key as SettingsStoreKey] = value.value
-    }
-    return settings
   }
 
   return state
