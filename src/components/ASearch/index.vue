@@ -81,11 +81,11 @@
     <ElFormItem :style="`${isMobile() ? 'width: 100%' : ''}`">
       <div :class="[isMobile() && 'mobile-searchbtn']">
         <ElButton type="primary" @click="handleSearch" :loading="searchLoading">
-          <!-- <Icon icon="ep:search" /> -->
+          <AIcon icon="ep:search" />
           <span>查询</span>
         </ElButton>
         <ElButton type="info" @click="resetForm">
-          <!-- <Icon icon="ep:delete" /> -->
+          <AIcon icon="ep:delete" />
           <span>重置</span>
         </ElButton>
       </div>
