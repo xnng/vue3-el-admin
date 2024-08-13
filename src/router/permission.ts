@@ -1,9 +1,9 @@
 import router from '@/router'
 import { useTitle } from '@/hooks/useTitle'
-import isWhiteList from '@/config/white-list'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { useUserStore } from '@/store/user'
+import { setRouteChange } from '@/hooks/useRouteListener'
 
 const { setTitle } = useTitle()
 NProgress.configure({ showSpinner: false })
@@ -15,8 +15,7 @@ router.beforeEach(async (to, _from, next) => {
 
   // 如果没有登陆
   if (!token) {
-    if (isWhiteList(to)) return next()
-    return next('/login')
+    return to.path == '/login' ? next() : next('/login')
   }
 
   if (to.path === '/login') {
@@ -26,6 +25,7 @@ router.beforeEach(async (to, _from, next) => {
 })
 
 router.afterEach((to) => {
+  setRouteChange(to)
   setTitle(to.meta.title)
   NProgress.done()
 })

@@ -70,9 +70,9 @@ const logout = () => {
 
 <style lang="scss" scoped>
 .navigation-bar {
-  height: var(--v3-navigationbar-height);
+  height: var(--admin-navigationbar-height);
   overflow: hidden;
-  color: var(--v3-navigationbar-text-color);
+  color: var(--admin-navigationbar-text-color);
   display: flex;
   justify-content: space-between;
   .hamburger {

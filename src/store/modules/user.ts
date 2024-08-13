@@ -4,7 +4,6 @@ import { defineStore } from 'pinia'
 import { useTagsViewStore } from './tags-view'
 import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cache/cookies'
-import { resetRouter } from '@/router'
 // import { loginApi, getUserInfoApi } from '@/api/login'
 // import { type LoginRequestData } from '@/api/login/types/login'
 // import routeSettings from '@/config/route'
@@ -43,7 +42,6 @@ export const useUserStore = defineStore('user2', () => {
     removeToken()
     token.value = ''
     roles.value = []
-    resetRouter()
     _resetTagsView()
   }
   /** 重置 Token */

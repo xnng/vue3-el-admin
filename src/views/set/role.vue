@@ -161,7 +161,6 @@ const getAllPermission = async () => {
   const permissionListRes = await getRolePermissionListApi({})
   if (permissionListRes.success) {
     allPermission.value = permissionListRes.data
-    console.log(permissionListRes.data)
   }
 }
 

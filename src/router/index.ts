@@ -86,17 +86,4 @@ const router = createRouter({
   routes: constantRoutes.concat(dynamicRoutes)
 })
 
-export function resetRouter() {
-  try {
-    router.getRoutes().forEach((route) => {
-      const { name, meta } = route
-      if (name && meta.roles?.length) {
-        router.hasRoute(name) && router.removeRoute(name)
-      }
-    })
-  } catch {
-    window.location.reload()
-  }
-}
-
 export default router

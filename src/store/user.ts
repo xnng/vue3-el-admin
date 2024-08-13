@@ -14,8 +14,6 @@ export const useUserStore = defineStore('user', {
     routerList: [],
     /** 该用户有权限访问的所有按钮 */
     btnList: [],
-    /** 用来标记在路由守卫里是否需要重新获取一下权限菜单 */
-    hasGetMenu: false,
     /** 用户可访问的所有路由 */
     fullRoutes: [] as any[],
     token: ''
@@ -31,9 +29,6 @@ export const useUserStore = defineStore('user', {
         throw new Error(loginRes.msg)
       }
     },
-    toggleGetMenuStatus(payload: boolean) {
-      this.hasGetMenu = payload
-    },
     logOut() {
       this.userInfo = {}
       this.routerList = []
@@ -42,18 +37,14 @@ export const useUserStore = defineStore('user', {
       this.token = ''
     },
     async getMenu() {
-      try {
-        const menuRes = await getMenuApi()
-        if (menuRes.success) {
-          const { routerList, btnList } = menuRes.data
-          this.routerList = routerList
-          this.btnList = btnList
-          this.setRoutes()
-        } else {
-          throw new Error(menuRes.msg)
-        }
-      } finally {
-        this.toggleGetMenuStatus(true)
+      const menuRes = await getMenuApi()
+      if (menuRes.success) {
+        const { routerList, btnList } = menuRes.data
+        this.routerList = routerList
+        this.btnList = btnList
+        this.setRoutes()
+      } else {
+        throw new Error(menuRes.msg)
       }
     },
     setRoutes() {

@@ -87,7 +87,6 @@ const handleLogin = async () => {
     singleMessage.success('登录成功')
     router.push('/set/user')
   } catch (err) {
-    console.log('err', err)
     const error = err as Error
     singleMessage.error(error.message)
   } finally {

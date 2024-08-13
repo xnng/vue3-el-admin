@@ -203,8 +203,6 @@ const showEdit = ({ row, done }: any) => {
   editForm.value = {
     ...row
   }
-  console.log(row, 'row')
-
   // if (row.type == 2) {
   //   editForm.value.type = row.isButton == 0 ? 2 : 3
   // }

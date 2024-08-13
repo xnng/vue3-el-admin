@@ -7,9 +7,9 @@ const { themeList, activeThemeName, setTheme } = useTheme()
 const handleChangeTheme = ({ clientX, clientY }: MouseEvent, themeName: ThemeName) => {
   const maxRadius = Math.hypot(Math.max(clientX, window.innerWidth - clientX), Math.max(clientY, window.innerHeight - clientY))
   const style = document.documentElement.style
-  style.setProperty('--v3-theme-x', clientX + 'px')
-  style.setProperty('--v3-theme-y', clientY + 'px')
-  style.setProperty('--v3-theme-r', maxRadius + 'px')
+  style.setProperty('--admin-theme-x', clientX + 'px')
+  style.setProperty('--admin-theme-y', clientY + 'px')
+  style.setProperty('--admin-theme-r', maxRadius + 'px')
   const handler = () => {
     setTheme(themeName)
   }
