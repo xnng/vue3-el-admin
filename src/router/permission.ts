@@ -13,13 +13,12 @@ router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore()
   const token = userStore.token
 
-  // 如果没有登陆
   if (!token) {
     return to.path == '/login' ? next() : next('/login')
   }
 
   if (to.path === '/login') {
-    return next({ path: '/set/user' })
+    return next({ path: '/' })
   }
   return next()
 })
