@@ -17,7 +17,7 @@
   --admin-sidebar-width: 220px;
   --admin-sidebar-hide-width: 58px;
   --admin-sidebar-border-right: 1px solid var(--el-fill-color);
-  --admin-sidebar-menu-item-height: 60px;
+  --admin-sidebar-menu-item-height: 40px;
   --admin-sidebar-menu-tip-line-bg-color: var(--el-color-primary);
   --admin-sidebar-menu-bg-color: #001428;
   --admin-sidebar-menu-hover-bg-color: #409eff10;
