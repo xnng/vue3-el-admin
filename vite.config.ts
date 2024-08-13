@@ -7,6 +7,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
 import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/vite'
+import externalGlobals from 'rollup-plugin-external-globals'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 /** 配置项文档：https://cn.vitejs.dev/config */
 export default ({ mode }: ConfigEnv): UserConfigExport => {
@@ -18,6 +20,9 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         /** @ 符号指向 src 目录 */
         '@': resolve(__dirname, './src')
       }
+    },
+    optimizeDeps: {
+      include: ['vue', 'vue-router', 'pinia', 'axios', 'element-plus', '@element-plus/icons-vue']
     },
     server: {
       /** 设置 host: true 才可以使用 Network 的形式，以 IP 访问项目 */
@@ -60,15 +65,15 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       /** 打包后静态资源目录 */
       assetsDir: 'static',
       rollupOptions: {
+        external: ['vue', 'element-plus'],
         output: {
-          /**
-           * 分块策略
-           * 1. 注意这些包名必须存在，否则打包会报错
-           * 2. 如果你不想自定义 chunk 分割策略，可以直接移除这段配置
-           */
-          manualChunks: {
-            vue: ['vue', 'vue-router', 'pinia'],
-            element: ['element-plus', '@element-plus/icons-vue']
+          chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+          entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+          assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor'
+            }
           }
         }
       }
@@ -98,7 +103,29 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       visualizer({
         filename: './dist/stats.html',
         open: false
-      }) as Plugin
+      }) as Plugin,
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            vuescript: '<script src="https://cdn.jsdelivr.net/npm/vue@3.4.31/dist/vue.global.prod.js"></script>',
+            demiScript: '<script src="https://cdn.jsdelivr.net/npm/vue-demi@0.14.5"></script>',
+            vueRouterScript: '<script src="https://cdn.jsdelivr.net/npm/vue-router@4.4.3/dist/vue-router.global.prod.js"></script>',
+            axiosScript: '<script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>',
+            elementPlusScript: `
+              <link href="https://cdn.jsdelivr.net/npm/element-plus@2.7.7/dist/index.min.css" rel="stylesheet">
+              <script src="https://cdn.jsdelivr.net/npm/element-plus@2.7.7/dist/index.full.min.js"></script>
+            `
+          }
+        }
+      }),
+      externalGlobals({
+        vue: 'Vue',
+        'vue-demi': 'VueDemi',
+        'element-plus': 'ElementPlus',
+        'vue-router': 'VueRouter',
+        axios: 'axios'
+      })
     ],
     /** Vitest 单元测试配置：https://cn.vitest.dev/config */
     test: {

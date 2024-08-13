@@ -1,4 +1,4 @@
-import { type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import { type RouteRecordRaw, createRouter, createWeb, createWebHashHistory, createWebHashHistoryHashHistory } from 'vue-router'
 
 const Layout = () => import('@/layouts/index.vue')
 
@@ -54,7 +54,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: constantRoutes.concat(dynamicRoutes)
 })
 
