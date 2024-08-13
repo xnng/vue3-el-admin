@@ -22,7 +22,7 @@
   --admin-sidebar-menu-bg-color: #001428;
   --admin-sidebar-menu-hover-bg-color: #409eff10;
   --admin-sidebar-menu-text-color: #cfd3dc;
-  --admin-sidebar-menu-active-text-color: #ffffff;
+  --admin-sidebar-menu-active-text-color: #409eff;
   /** TagsView 组件 */
   --admin-tagsview-height: 34px;
   --admin-tagsview-text-color: var(--el-text-color-regular);

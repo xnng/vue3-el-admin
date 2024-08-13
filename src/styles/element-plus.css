@@ -5,9 +5,9 @@
  */
 
 html.normal {
-  --el-color-primary: #222c67ff;
-  --el-color-primary-light-3: #222c67cc;
-  --el-color-primary-hover-10: #222c671a;
+  --el-color-primary: #409eff;
+  --el-color-primary-light-3: #569de3;
+  --el-color-primary-hover-10: #6baced;
 }
 
 /** 基础颜色 */
