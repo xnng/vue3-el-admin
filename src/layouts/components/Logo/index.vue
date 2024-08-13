@@ -21,11 +21,12 @@ const { isLeft, isTop } = useLayoutMode()
   <div class="layout-logo-container" :class="{ collapse: props.collapse, 'layout-mode-top': isTop }">
     <transition name="layout-logo-fade">
       <router-link v-if="props.collapse" key="collapse" to="/">
-        <img :src="logo" class="layout-logo" />
+        <img v-if="useImgLogo" :src="logo" class="layout-logo" />
+        <span class="layout-logo-title" v-else>AI</span>
       </router-link>
       <router-link v-else key="expand" to="/">
         <img v-if="useImgLogo" :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text" />
-        <span v-else class="layout-logo-title">Vue3 Admin</span>
+        <span v-else class="layout-logo-title">AI 知识库</span>
       </router-link>
     </transition>
   </div>
