@@ -103,7 +103,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       visualizer({
         filename: './dist/stats.html',
         open: false
-      }) as Plugin,
+      }),
       createHtmlPlugin({
         minify: true,
         inject: {
