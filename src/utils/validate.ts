@@ -43,18 +43,6 @@ export const isVersion = (version: string) => {
   return reg.test(version)
 }
 
-/** 判断时间格式是否为 24 小时制（HH:mm:ss） */
-export const is24H = (time: string) => {
-  const reg = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
-  return reg.test(time)
-}
-
-/** 判断是否为手机号（1 开头） */
-export const isPhoneNumber = (str: string) => {
-  const reg = /^(?:(?:\+|00)86)?1\d{10}$/
-  return reg.test(str)
-}
-
 /** 判断是否为第二代身份证（18 位） */
 export const isChineseIdCard = (str: string) => {
   const reg = /^[1-9]\d{5}(?:18|19|20)\d{2}(?:0[1-9]|10|11|12)(?:0[1-9]|[1-2]\d|30|31)\d{3}[\dXx]$/
@@ -78,10 +66,4 @@ export const isIPv4 = (ip: string) => {
   const reg =
     /^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])(?::(?:[0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$/
   return reg.test(ip)
-}
-
-/** 判断是否为车牌（兼容新能源车牌） */
-export const isLicensePlate = (str: string) => {
-  const reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/
-  return reg.test(str)
 }
