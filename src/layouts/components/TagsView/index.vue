@@ -174,10 +174,13 @@ onMounted(() => {
         @click.middle="!isAffix(tag) && closeSelectedTag(tag)"
         @contextmenu.prevent="openMenu(tag, $event)"
       >
-        {{ tag.meta?.title }}
-        <el-icon v-if="!isAffix(tag)" :size="12" @click.prevent.stop="closeSelectedTag(tag)">
-          <Close />
-        </el-icon>
+        <div class="flex items-center justify-center">
+          <a-icon v-if="tag.meta?.icon" :icon="tag.meta.icon" :size="12"> </a-icon>
+          {{ tag.meta?.title }}
+          <el-icon v-if="!isAffix(tag)" :size="12" @click.prevent.stop="closeSelectedTag(tag)">
+            <Close />
+          </el-icon>
+        </div>
       </router-link>
     </ScrollPane>
     <ul v-show="visible" class="contextmenu" :style="{ left: left + 'px', top: top + 'px' }">
