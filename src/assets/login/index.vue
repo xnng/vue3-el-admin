@@ -85,7 +85,7 @@ const handleLogin = async () => {
     })
     await userStore.getMenu()
     singleMessage.success('登录成功')
-    router.push('/set/user')
+    router.push('/')
   } catch (err) {
     const error = err as Error
     singleMessage.error(error.message)
